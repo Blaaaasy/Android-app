@@ -12,15 +12,15 @@ import android.widget.Toast;
 public class WelcomeActivity extends AppCompatActivity {
 
     private Button logout;
-    TextView show_welcom;
+    TextView show_welcome;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         Intent reintent = getIntent();
         String tempstr = reintent.getStringExtra("key");
-        show_welcom = (TextView) findViewById(R.id.welcome);
-        show_welcom.setText("Welcome!\n"+tempstr);
+        show_welcome = (TextView) findViewById(R.id.welcome);
+        show_welcome.setText("Welcome!\n"+tempstr);
         logout = (Button) findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener()
         {
