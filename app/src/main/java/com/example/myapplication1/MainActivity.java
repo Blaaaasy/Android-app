@@ -2,6 +2,7 @@ package com.example.myapplication1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         {
             public void onClick(View v)
             {
+                showprogress();
                 if(username.getText().toString().equals("admin")&&password.getText().toString().equals("123456"))
                 {
                     Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_SHORT).show();
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
         register.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
@@ -48,5 +51,23 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(t);
             }
         });
+    }
+    ProgressDialog pd;
+    public void showprogress() {
+        pd=new ProgressDialog(this);
+        pd.setTitle( "登陆中" );
+        pd.setMessage( "请稍后..." );
+        pd.setCancelable( true );
+        pd.setProgressStyle( ProgressDialog.STYLE_HORIZONTAL);//风格
+        pd.setMax(100);
+        int i;
+        for (i=0;i<100;i++){
+            pd.setProgress(i);
+            try {
+                Thread.sleep(120);
+            } catch (InterruptedException e) {
+            }
+        }
+        pd.show();
     }
 }
