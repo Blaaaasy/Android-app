@@ -10,7 +10,7 @@ import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
+//import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -65,17 +65,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ListView listView = (ListView) findViewById(R.id.list_view);
-
-        // 定义要显示的数组
-        String[] contents = {"Android", "demo", "Edit", "APP", "excel",
-                "dota", "Button", "Circle", "excel", "back"};
-
-        // 将数组包装为自定义MyArrayAdapter
-        UserAdapter adapter = new UserAdapter(this, R.layout.user, contents);
-
-        // 为ListView设置Adapter
-        listView.setAdapter(adapter);
+//        ListView listView = (ListView) findViewById(R.id.list_view);
+//
+//        // 定义要显示的数组
+//        String[] contents = {"Android", "demo", "Edit", "APP", "excel",
+//                "dota", "Button", "Circle", "excel", "back"};
+//
+//        // 将数组包装为自定义MyArrayAdapter
+//        UserAdapter adapter = new UserAdapter(this, R.layout.user, contents);
+//
+//        // 为ListView设置Adapter
+//        listView.setAdapter(adapter);
 
 
         register.setOnClickListener(new View.OnClickListener()

@@ -44,15 +44,15 @@ public class UserAdapter extends ArrayAdapter {
         contentTv.setText(content);
         // 根据内容首字母判断要显示的图标
         if(content.startsWith("a") || content.startsWith("A")) {
-            letterImg.setImageResource(com.google.android.material.R.drawable.abc_ic_star_black_16dp);
+            letterImg.setImageResource(R.drawable.avatar_1);
         } else if(content.startsWith("b") || content.startsWith("B")) {
-            letterImg.setImageResource(com.google.android.material.R.drawable.abc_ic_star_black_16dp);
+            letterImg.setImageResource(R.drawable.avatar_2);
         } else if(content.startsWith("c") || content.startsWith("C")) {
-            letterImg.setImageResource(com.google.android.material.R.drawable.abc_ic_star_black_16dp);
-        } else if(content.startsWith("d") || content.startsWith("D")) {
-            letterImg.setImageResource(com.google.android.material.R.drawable.abc_ic_star_black_16dp);
-        } else if(content.startsWith("e") || content.startsWith("E")) {
-            letterImg.setImageResource(com.google.android.material.R.drawable.abc_ic_star_black_16dp);
+            letterImg.setImageResource(R.drawable.avatar_1);
+//        } else if(content.startsWith("d") || content.startsWith("D")) {
+//            letterImg.setImageResource(com.google.android.material.R.drawable.abc_ic_star_black_16dp);
+//        } else if(content.startsWith("e") || content.startsWith("E")) {
+//            letterImg.setImageResource(com.google.android.material.R.drawable.abc_ic_star_black_16dp);
         }
 
         // 返回列表项视图
