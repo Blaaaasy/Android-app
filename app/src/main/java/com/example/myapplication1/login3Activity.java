@@ -8,10 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class login3Activity extends AppCompatActivity {
 
-    private Button addFriends, friends;
+    private Button addFriends, friends, logout;
     ImageView imageView;
     TextView user;
 
@@ -34,6 +35,17 @@ public class login3Activity extends AppCompatActivity {
         imageView.setImageResource(avatar);
         user.setText(username);
 
+        logout = (Button) findViewById(R.id.logout);
+        logout.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                Toast.makeText(getApplicationContext(), "Logout successfully!", Toast.LENGTH_SHORT).show();
+                Intent t = new Intent(login3Activity.this, MainActivity.class);
+                startActivity(t);
+                finish();
+            }
+        });
         addFriends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
