@@ -7,22 +7,22 @@
 
 
         <Button
-            android:id="@+id/recom"
+            android:id="@+id/friends"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="推荐" />
+            android:text="我的好友" />
 
         <Button
-            android:id="@+id/friend"
+            android:id="@+id/addFriends"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
 
-            android:text="好友" />
+            android:text="添加好友" />
 
         <Button
-            android:id="@+id/my"
+            android:id="@+id/me"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

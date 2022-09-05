@@ -15,11 +15,20 @@
 
 
         <ImageView
-            android:layout_marginTop="50dp"
-            android:id="@+id/imageView"
+            android:layout_marginTop="100dp"
+            android:id="@+id/avatar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:src="@drawable/avatar_1"
+            />
+<!--            tools:srcCompat="@tools:sample/avatars"-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/change"
+            android:gravity="center_horizontal"
+            android:text="变更头像"/>
 
 
         <LinearLayout

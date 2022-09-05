@@ -25,6 +25,7 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Register successfully!", Toast.LENGTH_SHORT).show();
                 Intent t = new Intent(RegisterActivity.this, MainActivity.class);
                 startActivity(t);
+                finish();
             }
         });
         back.setOnClickListener(new View.OnClickListener()
@@ -33,6 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
             {
                 Intent t = new Intent(RegisterActivity.this, MainActivity.class);
                 startActivity(t);
+                finish();
             }
         });
     }
