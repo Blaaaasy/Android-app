@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,10 +21,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         login=(Button)findViewById(R.id.login);
         register=(Button)findViewById(R.id.register);
         username=(EditText)super.findViewById(R.id.username);//获取用户输入的用户名
         password=(EditText)super.findViewById(R.id.password);//获取用户密码
+
         login.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
@@ -32,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                 if(username.getText().toString().equals("admin")&&password.getText().toString().equals("123456"))
                 {
                     Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_SHORT).show();
-                    Intent t = new Intent(MainActivity.this, WelcomeActivity.class);//从login页面跳转到index界面
+                    Intent t = new Intent(MainActivity.this, login1Activity.class);//从login页面跳转到index界面
                     t.putExtra("key", username.getText().toString());
                     startActivity(t);
                 }
@@ -42,6 +45,19 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        ListView listView = (ListView) findViewById(R.id.list_view);
+
+        // 定义要显示的数组
+        String[] contents = {"Android", "demo", "Edit", "APP", "excel",
+                "dota", "Button", "Circle", "excel", "back"};
+
+        // 将数组包装为自定义MyArrayAdapter
+        UserAdapter adapter = new UserAdapter(this, R.layout.user, contents);
+
+        // 为ListView设置Adapter
+        listView.setAdapter(adapter);
+
 
         register.setOnClickListener(new View.OnClickListener()
         {
