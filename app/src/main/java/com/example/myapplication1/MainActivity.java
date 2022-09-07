@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,6 +18,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         password=(EditText)super.findViewById(R.id.password);//获取用户密码
         avatar=(ImageView)findViewById(R.id.avatar);
         change=(TextView)findViewById(R.id.change);
+//        check_avatar();
 
         login.setOnClickListener(new View.OnClickListener()
         {
@@ -60,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
                         handler.sendEmptyMessage(0);
                     }
                 }.start();
-                if(username.getText().toString().equals("admin")&&password.getText().toString().equals("123456"))
+//                if(username.getText().toString().equals("admin")&&password.getText().toString().equals("123456"))
+                if(login(username.getText().toString(), password.getText().toString()))
                 {
                     Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_SHORT).show();
                     Intent t = new Intent(MainActivity.this, login1Activity.class);
@@ -110,6 +116,31 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(t);
             }
         });
+    }
+    public boolean login(String username, String pwd){
+        DBService dbService = new DBService();
+        List<ContentValues> res = dbService.query(MainActivity.this, "user", new String[] {"psd"}, "u_id", new String[] {username}, null, null, null);
+
+        Toast.makeText(getApplicationContext(), res.toString(), Toast.LENGTH_SHORT).show();
+        ContentValues value = res.get(0);
+        Toast.makeText(getApplicationContext(), value.get("psd").toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), pwd, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), (value.get("psd").toString()==pwd), Toast.LENGTH_SHORT).show();
+        if(value.get("psd").toString().equals(pwd)){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    public void set_avatar(){
+        DBService dbService = new DBService();
+//        List<ContentValues> res = dbService.query(MainActivity.this, "user", new String[] {"psd"}, "u_id", new String[] {username}, null, null, null);
+
+//        Toast.makeText(getApplicationContext(), res.toString(), Toast.LENGTH_SHORT).show();
+//        ContentValues value = res.get(0);
+//        Toast.makeText(getApplicationContext(), value.get("psd").toString(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), pwd, Toast.LENGTH_SHORT).show();
     }
     public void showProgress() {
         pd=new ProgressDialog(this);

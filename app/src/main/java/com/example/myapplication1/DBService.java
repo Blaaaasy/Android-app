@@ -5,14 +5,18 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.List;
 
 
 public class DBService {
 //    DBHelper dbHelper= new DBHelper(null,null,null,1);
     //新增
     public void insert(Context context, String tablename, ContentValues value){
-        DBHelper dbHelper= new DBHelper(context,"testdb",null,1);
+        DBHelper dbHelper= new DBHelper(context,"testdb",null,2);
         // 通过DBHelper类获取一个读写的SQLiteDatabase对象
         SQLiteDatabase db= dbHelper.getWritableDatabase();
         // 创建ContentValue设置参数
@@ -26,7 +30,7 @@ public class DBService {
         // insert方法参数1：要插入的表名
         // insert方法参数2：如果发现将要插入的行为空时，会将这个列名的值设为null
         // insert方法参数3：contentValue
-        long i=db.insert(tablename,null ,value);
+        db.insert(tablename,null ,value);
 
         // 释放连接
         db.close();
@@ -62,10 +66,10 @@ public class DBService {
         db.close();
     }
     //查询
-    public void query(Context context, String tablename, String[] column, String selection, String[] selectionArgs, String groupBy, String having, String orderBy) {
-        DBHelper dbHelper= new DBHelper(context,"testdb",null,1);
+    public List<ContentValues> query(Context context, String tablename, String[] column, String selection, String[] selectionArgs, @Nullable String groupBy, @Nullable String having, @Nullable String orderBy) {
+        DBHelper dbHelper= new DBHelper(context,"testdb",null,2);
         // 通过DBHelper类获取一个读写的SQLiteDatabase对象
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
         // 参数1：table_name
         // 参数2：columns 要查询出来的列名。相当于 select  *** from table语句中的 ***部分
         // 参数3：selection 查询条件字句，在条件子句允许使用占位符“?”表示条件值
@@ -73,20 +77,28 @@ public class DBService {
         // 参数5：groupby 相当于 select *** from table where && group by ... 语句中 ... 的部分
         // 参数6：having 相当于 select *** from table where && group by ...having %%% 语句中 %%% 的部分
         // 参数7：orderBy ：相当于 select  ***from ？？  where&& group by ...having %%% order by@@语句中的@@ 部分，如： personid desc（按person 降序）
-        Cursor cursor = db.query(tablename, column, selection, selectionArgs, groupBy, having, orderBy);
+        Cursor cursor = db.query(tablename, column, selection+"=?", selectionArgs, groupBy, having, orderBy);
 
         // 将游标移到开头
         cursor.moveToFirst();
 
+        List<ContentValues> res = new ArrayList<>();
         while (!cursor.isAfterLast()) { // 游标只要不是在最后一行之后，就一直循环
 
-            int id=cursor.getInt(0);
-            String name=cursor.getString(1);
+//            int id=cursor.getInt(0);
+//            String name=cursor.getString(1);
+            ContentValues temp = new ContentValues();
+            for(String element: column){
+                if(element == "psd")
+                    temp.put(element, cursor.getString(cursor.getColumnIndexOrThrow(element)));
+            }
+            res.add(temp);
 
             // 将游标移到下一行
             cursor.moveToNext();
         }
         db.close();
+        return res;
     }
 
 }
