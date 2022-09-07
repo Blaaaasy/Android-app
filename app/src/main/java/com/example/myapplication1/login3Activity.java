@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 public class login3Activity extends AppCompatActivity {
 
-    private Button addFriends, friends, logout;
+    private Button addFriends, friends, logout,piebt;
     ImageView imageView;
     TextView user;
 
@@ -29,6 +29,7 @@ public class login3Activity extends AppCompatActivity {
 
         addFriends = (Button) findViewById(R.id.addFriends);
         friends = (Button) findViewById(R.id.friends);
+        piebt = (Button) findViewById(R.id.piebt);
         user = (TextView)findViewById(R.id.username);
         imageView=(ImageView)findViewById(R.id.imageView);
 
@@ -57,6 +58,13 @@ public class login3Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent t = new Intent(login3Activity.this, login1Activity.class);
+                startActivity(t);
+            }
+        });
+        piebt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent t = new Intent(login3Activity.this, pieActivity.class);
                 startActivity(t);
             }
         });
