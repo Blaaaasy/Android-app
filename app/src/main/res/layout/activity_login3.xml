@@ -67,7 +67,13 @@
             android:id="@+id/logout"
             android:text="退出登录">
         </Button>
-
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:id="@+id/piebt"
+            android:text="查看男女比例">
+        </Button>
     </LinearLayout>
 
     <include layout="@layout/navbar" />
