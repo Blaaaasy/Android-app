@@ -2,6 +2,7 @@ package com.example.myapplication1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +14,7 @@ import android.widget.Toast;
 public class RegisterActivity extends AppCompatActivity {
 
     private Button register, back;
-    private EditText user,pwo;
+    private EditText user,pwd;
     private RadioButton ButtonM,ButtonW;
     DBService DBService =new DBService();
     @Override
@@ -24,7 +25,7 @@ public class RegisterActivity extends AppCompatActivity {
         register = (Button) findViewById(R.id.register);
         back = (Button) findViewById(R.id.back);
         user = (EditText) super.findViewById(R.id.user);
-        pwo = (EditText) super.findViewById(R.id.pwo);
+        pwd = (EditText) super.findViewById(R.id.pwd);
         ButtonM = (RadioButton) super.findViewById(R.id.ButtonM);
         ButtonW = (RadioButton) super.findViewById(R.id.ButtonW);
 
@@ -32,7 +33,19 @@ public class RegisterActivity extends AppCompatActivity {
         {
             public void onClick(View v)
             {
-                DBService.insert(user.getText().toString(),pwo.getText().toString(), ButtonM.getText().toString(),ButtonW.getText().toString(),null);
+                ContentValues value = new ContentValues();
+                value.put("u_id", user.getText().toString());
+                value.put("psd", pwd.getText().toString());
+                int gender = 0;
+                if(ButtonM.isChecked()){
+                    gender = 1;
+                }
+                else if(ButtonW.isChecked()){
+                    gender = 0;
+                }
+                value.put("gender", gender);
+                DBService.insert(RegisterActivity.this, "user", value);
+//                DBService.insert(user.getText().toString(),pwo.getText().toString(), ButtonM.getText().toString(),ButtonW.getText().toString(),null);
                 Toast.makeText(getApplicationContext(), "Register successfully!", Toast.LENGTH_SHORT).show();
                 Intent t = new Intent(RegisterActivity.this, MainActivity.class);
                 startActivity(t);

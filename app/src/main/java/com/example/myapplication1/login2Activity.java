@@ -51,33 +51,42 @@ public class login2Activity extends AppCompatActivity {
 //    }
 //}
 
-private Button addFriends;
+//    private Button addFriends;
+    private Button friends, me;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login2);
-        addFriends=(Button)findViewById(R.id.addFriend);
-// 获取界面组件
-        ListView listView = (ListView) findViewById(R.id.list_view);
+//        addFriends=(Button)findViewById(R.id.addFriend);
 
-        // 定义要显示的数组
-        String[] contents = {"Android", "demo", "Edit", "APP", "excel",
-                "dota", "Button", "Circle", "excel", "back"};
+        Intent reintent = getIntent();
+        String username = reintent.getStringExtra("user");
+        String avatar = reintent.getStringExtra("avatar");
 
-        // 将数组包装为自定义MyArrayAdapter
-        UserAdapter adapter = new UserAdapter(this, R.layout.activity_login2, contents);
+        ListView listview = (ListView)findViewById(R.id.list_view);
+        String[] data={"a","b","c"};
+        UserAdapter adapter = new UserAdapter(this, R.layout.user2, data);
+        listview.setAdapter(adapter);
 
-        // 为ListView设置Adapter
-        listView.setAdapter(adapter);
+        friends = (Button) findViewById(R.id.friends);
+        me = (Button) findViewById(R.id.me);
 
-        addFriends.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                Toast.makeText(getApplicationContext(), "添加成功", Toast.LENGTH_SHORT).show();
+
+        friends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent t = new Intent(login2Activity.this, login1Activity.class);
+                startActivity(t);
+            }
+        });
+        me.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent t = new Intent(login2Activity.this, login3Activity.class);
+                t.putExtra("user", username);
+                t.putExtra("avatar", avatar);
+                startActivity(t);
             }
         });
     }
-
-
 }

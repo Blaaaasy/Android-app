@@ -18,9 +18,9 @@ public class login1Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login1);
 
-        Intent reintent = getIntent();
-        String username = reintent.getStringExtra("user");
-        String avatar = reintent.getStringExtra("avatar");
+//        Intent reintent = getIntent();
+//        String username = reintent.getStringExtra("user");
+//        String avatar = reintent.getStringExtra("avatar");
 
         ListView listview = (ListView)findViewById(R.id.list_view);
         String[] data={"a","b","c"};
@@ -42,8 +42,8 @@ public class login1Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent t = new Intent(login1Activity.this, login3Activity.class);
-                t.putExtra("user", username);
-                t.putExtra("avatar", avatar);
+//                t.putExtra("user", username);
+//                t.putExtra("avatar", avatar);
                 startActivity(t);
             }
         });

@@ -27,7 +27,8 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // 初始化数据库的表结构，执行一条建表的SQL语句
-        db.execSQL("create table user(u_id int not null primary key,u_name varchar(50) not null,age int)");
+        db.execSQL("create table user(u_id varchar(50) not null primary key,psd varchar(50) not null,gender int not null,avatar varchar(50))");
+        db.execSQL("create table relation(r_id int not null primary key,u_id_1 int not null,u_id_2 int not null)");
     }
 
     /**
