@@ -26,6 +26,9 @@ public class pieActivity extends AppCompatActivity {
         back=(Button)findViewById(R.id.back);
         pieView = (PieView) findViewById(R.id.PieView);
 
+        Intent reintent = getIntent();
+        String username = reintent.getStringExtra("user");
+
         int[] pieColor = {getResources().getColor(R.color.blue), getResources().getColor(R.color.red), getResources().getColor(R.color.gray_dark),
                 getResources().getColor(R.color.dark), getResources().getColor(R.color.red), getResources().getColor(R.color.black_alpha_light)};
         for (int i = 0; i < arr.length; i++) {
@@ -40,6 +43,7 @@ public class pieActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 Intent t = new Intent(pieActivity.this, login3Activity.class);
+                t.putExtra("user", username);
                 startActivity(t);
             }
         });

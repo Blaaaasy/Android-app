@@ -48,8 +48,8 @@ public class DBService {
 //        db.close();
 //    }
 //    //修改
-    public void update(Context context, String tablename, ContentValues value){
-        DBHelper dbHelper= new DBHelper(context,"testdb",null,1);
+    public void update(Context context, String tablename, String username, ContentValues value){
+        DBHelper dbHelper= new DBHelper(context,"testdb",null,2);
         // 通过DBHelper类获取一个读写的SQLiteDatabase对象
         SQLiteDatabase db=dbHelper.getWritableDatabase();
         // 创建ContentValue设置参数
@@ -60,7 +60,7 @@ public class DBService {
         // 参数2：修改的值
         // 参数3：修改的条件（SQL where语句）
         // 参数4：表示whereClause语句中的表达式的占位符参数列表，这些字符串会替换where条件中?
-        db.update(tablename,value,"u_id=?",new String[]{value.get("u_id").toString()});
+        db.update(tablename,value,"u_id=?",new String[]{username});
 
         // 释放连接
         db.close();
@@ -88,9 +88,21 @@ public class DBService {
 //            int id=cursor.getInt(0);
 //            String name=cursor.getString(1);
             ContentValues temp = new ContentValues();
-            for(String element: column){
-                if(element == "psd")
+            String[] tmpArr;
+            if(column == null){
+                if(tablename.equals("user"))
+                    tmpArr = new String[]{"u_id", "psd", "gender", "avatar"};
+                else
+                    tmpArr = new String[]{"r_id", "u_id_1", "u_id_2"};
+            }
+            else {
+                tmpArr = column;
+            }
+            for(String element: tmpArr){
+                if(element.equals("psd") || element.equals("u_id") || element.equals("avatar"))
                     temp.put(element, cursor.getString(cursor.getColumnIndexOrThrow(element)));
+                else if (element.equals("gender"))
+                    temp.put(element, cursor.getInt(cursor.getColumnIndexOrThrow((element))));
             }
             res.add(temp);
 
@@ -99,6 +111,27 @@ public class DBService {
         }
         db.close();
         return res;
+    }
+
+    public boolean isExist(Context context, String tablename, String selection, String[] selectionArgs){
+        DBHelper dbHelper= new DBHelper(context,"testdb",null,2);
+        // 通过DBHelper类获取一个读写的SQLiteDatabase对象
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.query(tablename, null, selection+"=?", selectionArgs, null, null, null);
+
+        cursor.moveToFirst();
+        boolean result = cursor.moveToNext();
+        db.close();
+        return result;
+    }
+
+    public void delete(Context context){
+        DBHelper dbHelper= new DBHelper(context,"testdb",null,2);
+        // 通过DBHelper类获取一个读写的SQLiteDatabase对象
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        db.execSQL("drop table user");
+        db.execSQL("drop table ralation");
+        db.close();
     }
 
 }

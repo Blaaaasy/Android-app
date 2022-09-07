@@ -39,9 +39,9 @@ public class RegisterActivity extends AppCompatActivity {
                 if(user.getText().toString().length()<6 || pwd.getText().toString().length()<6){
                     Toast.makeText(getApplicationContext(), "用户名或密码长度需大于6位", Toast.LENGTH_SHORT).show();
                 }
-//                else if(is_exist(user.getText().toString())){
-//                    Toast.makeText(getApplicationContext(), "用户名已存在", Toast.LENGTH_SHORT).show();
-//                }
+                else if(is_exist(user.getText().toString())){
+                    Toast.makeText(getApplicationContext(), "用户名已存在", Toast.LENGTH_SHORT).show();
+                }
                 else{
                     if(pwd.getText().toString().equals(rpw.getText().toString())){
                         ContentValues value = new ContentValues();
@@ -71,6 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
         {
             public void onClick(View v)
             {
+                DBService.delete(RegisterActivity.this);
                 Intent t = new Intent(RegisterActivity.this, MainActivity.class);
                 startActivity(t);
                 finish();
@@ -79,10 +80,11 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public boolean is_exist(String username){
-        DBService dbService = new DBService();
-        List<ContentValues> res = dbService.query(RegisterActivity.this, "user", new String[] {"u_id"}, "u_id", new String[] {username}, null, null, null);
+        List<ContentValues> res = DBService.query(RegisterActivity.this, "user", new String[] {"u_id"}, "u_id", new String[] {username}, null, null, null);
 
         ContentValues value = res.get(0);
+        Toast.makeText(getApplicationContext(), value.toString(), Toast.LENGTH_SHORT).show();
+
         if(value.get("u_id").toString().equals(username)){
             return true;
         }

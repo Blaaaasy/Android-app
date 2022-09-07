@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     EditText password;
     ImageView avatar;
     TextView change;
-    int current_avatar = R.drawable.avatar_1;
+    int current_avatar = 1;
 
     ProgressDialog pd;
     @Override
@@ -65,13 +65,11 @@ public class MainActivity extends AppCompatActivity {
                         handler.sendEmptyMessage(0);
                     }
                 }.start();
-//                if(username.getText().toString().equals("admin")&&password.getText().toString().equals("123456"))
                 if(login(username.getText().toString(), password.getText().toString()))
                 {
-                    Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "登录成功", Toast.LENGTH_SHORT).show();
                     Intent t = new Intent(MainActivity.this, login1Activity.class);
                     t.putExtra("user", username.getText().toString());
-                    t.putExtra("avatar", current_avatar+"");
                     startActivity(t);
                     finish();
                 }
@@ -95,18 +93,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        ListView listView = (ListView) findViewById(R.id.list_view);
-//
-//        // 定义要显示的数组
-//        String[] contents = {"Android", "demo", "Edit", "APP", "excel",
-//                "dota", "Button", "Circle", "excel", "back"};
-//
-//        // 将数组包装为自定义MyArrayAdapter
-//        UserAdapter adapter = new UserAdapter(this, R.layout.user, contents);
-//
-//        // 为ListView设置Adapter
-//        listView.setAdapter(adapter);
-
 
         register.setOnClickListener(new View.OnClickListener()
         {
@@ -121,26 +107,20 @@ public class MainActivity extends AppCompatActivity {
         DBService dbService = new DBService();
         List<ContentValues> res = dbService.query(MainActivity.this, "user", new String[] {"psd"}, "u_id", new String[] {username}, null, null, null);
 
-        Toast.makeText(getApplicationContext(), res.toString(), Toast.LENGTH_SHORT).show();
         ContentValues value = res.get(0);
-        Toast.makeText(getApplicationContext(), value.get("psd").toString(), Toast.LENGTH_SHORT).show();
-        Toast.makeText(getApplicationContext(), pwd, Toast.LENGTH_SHORT).show();
-//        Toast.makeText(getApplicationContext(), (value.get("psd").toString()==pwd), Toast.LENGTH_SHORT).show();
         if(value.get("psd").toString().equals(pwd)){
+            set_avatar(dbService, username);
             return true;
         }
         else {
             return false;
         }
     }
-    public void set_avatar(){
-        DBService dbService = new DBService();
-//        List<ContentValues> res = dbService.query(MainActivity.this, "user", new String[] {"psd"}, "u_id", new String[] {username}, null, null, null);
-
-//        Toast.makeText(getApplicationContext(), res.toString(), Toast.LENGTH_SHORT).show();
-//        ContentValues value = res.get(0);
-//        Toast.makeText(getApplicationContext(), value.get("psd").toString(), Toast.LENGTH_SHORT).show();
-//        Toast.makeText(getApplicationContext(), pwd, Toast.LENGTH_SHORT).show();
+    public void set_avatar(DBService dbService, String username){
+        List<ContentValues> res = dbService.query(MainActivity.this, "user", new String[] {"avatar"}, "u_id", new String[] {username}, null, null, null);
+        ContentValues value = res.get(0);
+        value.put("avatar", current_avatar);
+        dbService.update(MainActivity.this, "user", username, value);
     }
     public void showProgress() {
         pd=new ProgressDialog(this);
@@ -166,55 +146,55 @@ public class MainActivity extends AppCompatActivity {
         int temp = (int) (Math.random()*13+1);
         if(temp == 1){
             avatar.setImageResource(R.drawable.avatar_1);
-            current_avatar = R.drawable.avatar_1;
+            current_avatar = temp;
         }
         else if(temp == 2){
             avatar.setImageResource(R.drawable.avatar_2);
-            current_avatar = R.drawable.avatar_2;
+            current_avatar = temp;
         }
         else if(temp == 3){
             avatar.setImageResource(R.drawable.avatar_3);
-            current_avatar = R.drawable.avatar_3;
+            current_avatar = temp;
         }
         else if(temp == 4){
             avatar.setImageResource(R.drawable.avatar_4);
-            current_avatar = R.drawable.avatar_4;
+            current_avatar = temp;
         }
         else if(temp == 5){
             avatar.setImageResource(R.drawable.avatar_5);
-            current_avatar = R.drawable.avatar_5;
+            current_avatar = temp;
         }
         else if(temp == 6){
             avatar.setImageResource(R.drawable.avatar_6);
-            current_avatar = R.drawable.avatar_6;
+            current_avatar = temp;
         }
         else if(temp == 7){
             avatar.setImageResource(R.drawable.avatar_7);
-            current_avatar = R.drawable.avatar_7;
+            current_avatar = temp;
         }
         else if(temp == 8){
             avatar.setImageResource(R.drawable.avatar_8);
-            current_avatar = R.drawable.avatar_8;
+            current_avatar = temp;
         }
         else if(temp == 9){
             avatar.setImageResource(R.drawable.avatar_9);
-            current_avatar = R.drawable.avatar_9;
+            current_avatar = temp;
         }
         else if(temp == 10){
             avatar.setImageResource(R.drawable.avatar_10);
-            current_avatar = R.drawable.avatar_10;
+            current_avatar = temp;
         }
         else if(temp == 11){
             avatar.setImageResource(R.drawable.avatar_11);
-            current_avatar = R.drawable.avatar_11;
+            current_avatar = temp;
         }
         else if(temp == 12){
             avatar.setImageResource(R.drawable.avatar_12);
-            current_avatar = R.drawable.avatar_12;
+            current_avatar = temp;
         }
         else if(temp == 13){
             avatar.setImageResource(R.drawable.avatar_13);
-            current_avatar = R.drawable.avatar_13;
+            current_avatar = temp;
         }
     }
 }
