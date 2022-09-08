@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button register, back;
     private EditText user,pwd,rpw;
     private RadioButton ButtonM,ButtonW;
+    private CheckBox checkBox;
     DBService DBService =new DBService();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
         rpw = (EditText) super.findViewById(R.id.rpw);
         ButtonM = (RadioButton) super.findViewById(R.id.ButtonM);
         ButtonW = (RadioButton) super.findViewById(R.id.ButtonW);
+        checkBox = (CheckBox) super.findViewById(R.id.checkBox);
 
         register.setOnClickListener(new View.OnClickListener()
         {
@@ -42,6 +45,12 @@ public class RegisterActivity extends AppCompatActivity {
 //                else if(is_exist(user.getText().toString())){
 //                    Toast.makeText(getApplicationContext(), "用户名已存在", Toast.LENGTH_SHORT).show();
 //                }
+                else if(!ButtonM.isChecked()&&!ButtonW.isChecked()){
+                    Toast.makeText(getApplicationContext(), "未选择性别", Toast.LENGTH_SHORT).show();
+                }
+                else if(!checkBox.isChecked()){
+                    Toast.makeText(getApplicationContext(), "请阅读并同意会员协议", Toast.LENGTH_SHORT).show();
+                }
                 else{
                     if(pwd.getText().toString().equals(rpw.getText().toString())){
                         ContentValues value = new ContentValues();
@@ -55,6 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
                             gender = 0;
                         }
                         value.put("gender", gender);
+                        Toast.makeText(getApplicationContext(), value.toString(), Toast.LENGTH_SHORT).show();
                         DBService.insert(RegisterActivity.this, "user", value);
                         Toast.makeText(getApplicationContext(), "Register successfully!", Toast.LENGTH_SHORT).show();
                         Intent t = new Intent(RegisterActivity.this, MainActivity.class);

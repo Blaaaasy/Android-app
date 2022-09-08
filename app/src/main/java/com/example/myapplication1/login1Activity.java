@@ -36,6 +36,7 @@ public class login1Activity extends AppCompatActivity {
                 Intent t = new Intent(login1Activity.this, login2Activity.class);
                 t.putExtra("user", username);
                 startActivity(t);
+                finish();
             }
         });
         me.setOnClickListener(new View.OnClickListener() {
@@ -44,6 +45,7 @@ public class login1Activity extends AppCompatActivity {
                 Intent t = new Intent(login1Activity.this, login3Activity.class);
                 t.putExtra("user", username);
                 startActivity(t);
+                finish();
             }
         });
     }

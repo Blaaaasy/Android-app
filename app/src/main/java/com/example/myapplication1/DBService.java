@@ -66,7 +66,7 @@ public class DBService {
         db.close();
     }
     //查询
-    public List<ContentValues> query(Context context, String tablename, String[] column, String selection, String[] selectionArgs, @Nullable String groupBy, @Nullable String having, @Nullable String orderBy) {
+    public List<ContentValues> query(Context context, String tablename, String[] column, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String groupBy, @Nullable String having, @Nullable String orderBy) {
         DBHelper dbHelper= new DBHelper(context,"testdb",null,2);
         // 通过DBHelper类获取一个读写的SQLiteDatabase对象
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -77,7 +77,11 @@ public class DBService {
         // 参数5：groupby 相当于 select *** from table where && group by ... 语句中 ... 的部分
         // 参数6：having 相当于 select *** from table where && group by ...having %%% 语句中 %%% 的部分
         // 参数7：orderBy ：相当于 select  ***from ？？  where&& group by ...having %%% order by@@语句中的@@ 部分，如： personid desc（按person 降序）
-        Cursor cursor = db.query(tablename, column, selection+"=?", selectionArgs, groupBy, having, orderBy);
+        Cursor cursor;
+        if(selection == null)
+            cursor = db.query(tablename, column, selection, selectionArgs, groupBy, having, orderBy);
+        else
+            cursor = db.query(tablename, column, selection+"=?", selectionArgs, groupBy, having, orderBy);
 
         // 将游标移到开头
         cursor.moveToFirst();

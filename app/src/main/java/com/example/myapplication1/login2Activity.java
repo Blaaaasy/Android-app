@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -25,12 +26,15 @@ public class login2Activity extends AppCompatActivity {
         String username = reintent.getStringExtra("user");
 
         ListView listview = (ListView)findViewById(R.id.list_view);
-//        List<String> tmp = new ArrayList<>();
+//        List<String> tmp = new ArrayList<>(Arrays.asList(new String[]{}));
 //        List<ContentValues> friendList=getFriends(username);
 //        for(ContentValues element: friendList){
-//
+//            tmp.add(element.getAsString("u_id"));
 //        }
-        String[] data={};
+//        String[] data=new String[tmp.size()];
+//        tmp.toArray(data);
+        String[] data={"a", "b", "c"};
+
         UserAdapter adapter = new UserAdapter(this, R.layout.user2, data);
         listview.setAdapter(adapter);
 
@@ -44,6 +48,7 @@ public class login2Activity extends AppCompatActivity {
                 Intent t = new Intent(login2Activity.this, login1Activity.class);
                 t.putExtra("user", username);
                 startActivity(t);
+                finish();
             }
         });
         me.setOnClickListener(new View.OnClickListener() {
@@ -52,12 +57,13 @@ public class login2Activity extends AppCompatActivity {
                 Intent t = new Intent(login2Activity.this, login3Activity.class);
                 t.putExtra("user", username);
                 startActivity(t);
+                finish();
             }
         });
     }
     public List<ContentValues> getFriends(String username){
         DBService dbService = new DBService();
-        List<ContentValues> res = dbService.query(login2Activity.this, "user", new String[] {"u_id", "avatar"}, null, null, null, null, null);
+        List<ContentValues> res = dbService.query(login2Activity.this, "user", new String[] {"u_id"}, null, null, null, null, null);
 
 //        for(ContentValues element: res){
 //

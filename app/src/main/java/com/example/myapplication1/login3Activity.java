@@ -50,7 +50,7 @@ public class login3Activity extends AppCompatActivity {
         {
             public void onClick(View v)
             {
-                Toast.makeText(getApplicationContext(), "Logout successfully!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "登出成功", Toast.LENGTH_SHORT).show();
                 Intent t = new Intent(login3Activity.this, MainActivity.class);
                 startActivity(t);
                 finish();
@@ -62,6 +62,7 @@ public class login3Activity extends AppCompatActivity {
                 Intent t = new Intent(login3Activity.this, login2Activity.class);
                 t.putExtra("user", username);
                 startActivity(t);
+                finish();
             }
         });
         friends.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +71,7 @@ public class login3Activity extends AppCompatActivity {
                 Intent t = new Intent(login3Activity.this, login1Activity.class);
                 t.putExtra("user", username);
                 startActivity(t);
+                finish();
             }
         });
         piebt.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +80,7 @@ public class login3Activity extends AppCompatActivity {
                 Intent t = new Intent(login3Activity.this, pieActivity.class);
                 t.putExtra("user", username);
                 startActivity(t);
+                finish();
             }
         });
 
@@ -86,7 +89,6 @@ public class login3Activity extends AppCompatActivity {
         DBService dbService = new DBService();
         List<ContentValues> res = dbService.query(login3Activity.this, "user", new String[] {"gender", "avatar"}, "u_id", new String[] {username}, null, null, null);
         ContentValues value = res.get(0);
-        Toast.makeText(getApplicationContext(), value.getAsInteger("avatar").toString(), Toast.LENGTH_SHORT).show();
 //        @DrawableRes int avatar = Integer.parseInt(value.getAsInteger("avatar").toString());
 //        imageView.setImageResource(avatar);
         String temp = value.getAsInteger("avatar").toString();
