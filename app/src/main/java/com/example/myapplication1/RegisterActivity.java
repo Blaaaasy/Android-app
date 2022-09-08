@@ -39,9 +39,9 @@ public class RegisterActivity extends AppCompatActivity {
                 if(user.getText().toString().length()<6 || pwd.getText().toString().length()<6){
                     Toast.makeText(getApplicationContext(), "用户名或密码长度需大于6位", Toast.LENGTH_SHORT).show();
                 }
-                else if(is_exist(user.getText().toString())){
-                    Toast.makeText(getApplicationContext(), "用户名已存在", Toast.LENGTH_SHORT).show();
-                }
+//                else if(is_exist(user.getText().toString())){
+//                    Toast.makeText(getApplicationContext(), "用户名已存在", Toast.LENGTH_SHORT).show();
+//                }
                 else{
                     if(pwd.getText().toString().equals(rpw.getText().toString())){
                         ContentValues value = new ContentValues();
